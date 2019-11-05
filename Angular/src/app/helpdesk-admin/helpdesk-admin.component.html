@@ -1,0 +1,32 @@
+<h1>Admin Helpdesk</h1>
+
+<h3>Total Resolved Tickets are : {{resolved}}</h3>
+
+<h3>Total Unresolved Tickets are : {{unresolved}}</h3>
+<button class="btn btn-success" (click)="listAllTickets()"> Show All Tickets</button> 
+<button class="btn btn-success" (click)="listResolvedTickets()"> Show Resolved Tickets</button> 
+<button class="btn btn-success" (click)="listUnresolvedTickets()"> Show Unresolved Tickets</button> 
+
+
+<div>
+  <form (ngSubmit)="listByLocation()">
+    <input type="text" [(ngModel)]="location" class="form-control" name="location" placeholder="Enter Location" required >
+    <button type="submit" class="btn btn-success">Fetch By Location</button>
+  </form>
+</div>
+<table class="table table-bordered" [hidden] = "!getUnresolved">
+    <tr>
+      <th>Ticket ID</th>
+      <th>Status <button class="btn btn-success" (click)="resolvedFirst()">Resolved First</button> <button class="btn btn-success" (click)="unresolvedFirst()">Unresolved First</button> </th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Order ID</th>
+    </tr>
+    <tr *ngFor = "let u of tickets">
+      <td>{{u.ticketNumber}}</td>
+      <td>{{u.status}}</td>
+      <td>{{u.date}}</td>
+      <td>{{u.location}}</td>
+      <td>{{u.order.orderId}}</td>
+    </tr>
+  </table>
